@@ -1,35 +1,29 @@
-const jwt = require('jsonwebtoken');
-
-const authenticate = async (req, res, next) => {
-  try {
-    const authHeader = req.headers.authorization;
-    
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ error: 'No token provided' });
-    }
-    
-    const token = authHeader.substring(7);
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
-    req.user = decoded;
-    next();
-  } catch (error) {
-    return res.status(401).json({ error: 'Invalid token' });
-  }
-};
-
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 
-// Your authenticate middleware is fine as-is
+// Import your middleware if needed
+// const authenticate = require('../middleware/auth');
 
-// You'll need to add your actual routes here, for example:
-// router.post('/login', async (req, res) => {
-//   // login logic
-// });
+// Login route
+router.post('/login', async (req, res) => {
+  try {
+    // Your login logic here
+    res.json({ message: 'Login endpoint' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
-// router.post('/register', async (req, res) => {
-//   // registration logic  
-// });
+// Register route  
+router.post('/register', async (req, res) => {
+  try {
+    // Your registration logic here
+    res.json({ message: 'Register endpoint' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;
