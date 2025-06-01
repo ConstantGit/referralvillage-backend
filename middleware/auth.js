@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export async function authenticate(req, res, next) {
+const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     
@@ -16,4 +16,6 @@ export async function authenticate(req, res, next) {
   } catch (error) {
     return res.status(401).json({ error: 'Invalid token' });
   }
-}
+};
+
+module.exports = authenticate;
